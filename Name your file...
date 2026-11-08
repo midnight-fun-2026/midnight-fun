@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Midnight Fun</title>
+<style>
+body{margin:0;background:#0c1022;color:white;font-family:Arial;text-align:center;padding:20px}
+.card{background:#1b2544;padding:22px;margin:18px auto;border-radius:18px;max-width:420px}
+h1{color:#ffd36a}
+.balance{font-size:42px;color:#ffd36a;font-weight:bold}
+button{background:#ffd36a;color:#17172b;border:0;padding:13px;border-radius:12px;font-weight:bold;width:100%;margin:8px 0;font-size:16px}
+.small{color:#b5c1df;font-size:13px}
+#result{color:#76e5dc;font-weight:bold;margin:12px}
+</style>
+</head>
+<body>
+<h1>🌙 MIDNIGHT FUN</h1>
+<p>Welcome to Demo Gaming</p>
+
+<div class="card">
+<p>आपका डेमो बैलेंस</p>
+<div class="balance"><span id="points">50</span> ✦</div>
+<p class="small">सिर्फ गेम पॉइंट्स, असली रुपये नहीं</p>
+</div>
+
+<div class="card">
+<h2>🎮 Number Guess</h2>
+<p>1 से 3 तक नंबर चुनो। सही होने पर 10 पॉइंट्स!</p>
+<button onclick="guess()">खेल शुरू करो</button>
+<div id="result"></div>
+</div>
+
+<div class="card">
+<h2>⚡ Quick Tap</h2>
+<p>टैप करके 5 डेमो पॉइंट्स पाओ।</p>
+<button onclick="add(5,'Quick Tap')">TAP NOW</button>
+</div>
+
+<div class="card">
+<h2>⭐ Lucky Star</h2>
+<p>हर स्टार पर 2 डेमो पॉइंट्स।</p>
+<button onclick="add(2,'Lucky Star')">Open Star</button>
+</div>
+
+<div class="card">
+<h2>🕛 Midnight Timer</h2>
+<div class="balance" id="timer">00:00:00</div>
+<p class="small">अगली आधी रात तक का समय</p>
+</div>
+
+<div class="card">
+<h2>🏆 Score Board</h2>
+<p id="score">आपका स्कोर: 50</p>
+</div>
+
+<div class="card">
+<h3>🔒 Demo Only</h3>
+<p class="small">यह मनोरंजन के लिए बनाई गई गेमिंग वेबसाइट है। कोई असली पैसे जमा या विड्रॉ नहीं होते।</p>
+</div>
+
+<script>
+let points=50;
+function add(n,name){
+points+=n;
+document.getElementById('points').innerText=points;
+document.getElementById('score').innerText='आपका स्कोर: '+points;
+document.getElementById('result').innerText=name+' में +'+n+' पॉइंट्स मिले!';
+}
+function guess(){
+let answer=Math.floor(Math.random()*3)+1;
+let pick=prompt('1, 2 या 3 चुनो');
+if(pick===null)return;
+if(!['1','2','3'].includes(pick)){
+document.getElementById('result').innerText='1 से 3 तक चुनो';
+return;
+}
+if(Number(pick)===answer){
+add(10,'Number Guess');
+}else{
+document.getElementById('result').innerText='इस बार नहीं! सही नंबर '+answer+' था।';
+}
+}
+function clock(){
+let now=new Date();
+let next=new Date(now);
+next.setHours(24,0,0,0);
+let s=Math.floor((next-now)/1000);
+let h=String(Math.floor(s/3600)).padStart(2,'0');
+let m=String(Math.floor(s%3600/60)).padStart(2,'0');
+let sec=String(s%60).padStart(2,'0');
+document.getElementById('timer').innerText=h+':'+m+':'+sec;
+}
+clock();
+setInterval(clock,1000);
+</script>
+</body>
+</html>
+
